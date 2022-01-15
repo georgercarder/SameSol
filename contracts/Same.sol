@@ -8,6 +8,8 @@ pragma solidity ^0.8.8;
 // goal is to make this a library (TODO). currently the main function relies on calldata
 //   so I need to figure out the proper way to support calldata with a library.
 
+// TODO check gas expenditure etc
+
 abstract contract Same {
 
   uint public constant WORDLENGTH = 32;
