@@ -14,15 +14,15 @@ abstract contract Same {
 
   uint public constant WORDLENGTH = 32;
 
-  function checkSameLength(bytes calldata b) external {
-    (uint firstCountOffset) = abi.decode(b[0:WORDLENGTH], (uint));
-    (uint firstCount) = abi.decode(b[firstCountOffset:firstCountOffset+WORDLENGTH], (uint));
-    uint otherCountOffset;
-    uint otherCount;
-    for (uint i=1; i*WORDLENGTH<firstCountOffset; i++) {
-      (otherCountOffset) = abi.decode(b[i*WORDLENGTH:(i+1)*WORDLENGTH], (uint)); 
-      (otherCount) = abi.decode(b[otherCountOffset:otherCountOffset+WORDLENGTH], (uint));
-      require(otherCount == firstCount, "wrong count");
+  function checkSameLength(bytes calldata b) external pure {
+    (uint firstLengthOffset) = abi.decode(b[0:WORDLENGTH], (uint));
+    (uint firstLength) = abi.decode(b[firstLengthOffset:firstLengthOffset+WORDLENGTH], (uint));
+    uint otherLengthOffset;
+    uint otherLength;
+    for (uint i=1; i*WORDLENGTH<firstLengthOffset; i++) {
+      (otherLengthOffset) = abi.decode(b[i*WORDLENGTH:(i+1)*WORDLENGTH], (uint)); 
+      (otherLength) = abi.decode(b[otherLengthOffset:otherLengthOffset+WORDLENGTH], (uint));
+      require(otherLength == firstLength, "Same: wrong length.");
     }
   }
 
