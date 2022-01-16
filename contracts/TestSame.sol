@@ -36,16 +36,12 @@ contract TestSame is Same {
     g[0] = true;
     g[3] = true;
 
-    bool failed;
-    try this.checkSameLength(abi.encode(a, b, c, d, e, f, g)) {} catch { failed = true; }
-    require(failed, "must fail.");
-    failed = false; // clear
+    try this.checkSameLength(abi.encode(a, b, c, d, e, f, g)) { revert("expected failure"); } catch {}
 
     SomeStruct[] memory h = new SomeStruct[](4);
     h[2] = SomeStruct({cat: true, dog: 69, bird: 2});
     h[3] = SomeStruct({cat: true, dog: 42, bird: 8});
 
-    try this.checkSameLength(abi.encode(a, b, c, d, e, f, h)) {} catch { failed = true; }
-    require(failed, "must fail.");
+    try this.checkSameLength(abi.encode(a, b, c, d, e, f, h)) { revert("expected failure"); } catch {}
   }
 }
