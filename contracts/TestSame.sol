@@ -27,7 +27,25 @@ contract TestSame is Same {
     e[0] = 0x01;
     e[0] = 0x05;
     SomeStruct[] memory f = new SomeStruct[](5);
+    f[2] = SomeStruct({cat: true, dog: 69, bird: 2});
+    f[3] = SomeStruct({cat: true, dog: 42, bird: 8});
 
     this.checkSameLength(abi.encode(a, b, c, d, e, f));
+
+    bool[] memory g = new bool[](6);
+    g[0] = true;
+    g[3] = true;
+
+    bool failed;
+    try this.checkSameLength(abi.encode(a, b, c, d, e, f, g)) {} catch { failed = true; }
+    require(failed, "must fail.");
+    failed = false; // clear
+
+    SomeStruct[] memory h = new SomeStruct[](4);
+    h[2] = SomeStruct({cat: true, dog: 69, bird: 2});
+    h[3] = SomeStruct({cat: true, dog: 42, bird: 8});
+
+    try this.checkSameLength(abi.encode(a, b, c, d, e, f, h)) {} catch { failed = true; }
+    require(failed, "must fail.");
   }
 }
