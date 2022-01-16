@@ -12,8 +12,6 @@ abstract contract Same {
 
   uint public constant WORDLENGTH = 32;
 
-  // currently the input must be abi.encode(T[], T'[], T''[], ...) where T* is a type of length 32 bytes
-  // future efforts will expand this to arbitrary data types
   function checkSameLength(bytes calldata b) external pure {
     (uint firstLengthOffset) = abi.decode(b[0:WORDLENGTH], (uint));
     (uint firstLength) = abi.decode(b[firstLengthOffset:firstLengthOffset+WORDLENGTH], (uint));
