@@ -13,6 +13,12 @@ contract TestSame is Same {
     b[3] = 55;
     b[4] = 44;
     address[] memory c = new address[](5);
-    this.checkSameLength(abi.encode(a, b, c));
+    bool[] memory d = new bool[](5);
+    d[0] = true;
+    d[3] = true;
+    bytes memory e = new bytes(5);
+    e[0] = 0x01;
+    e[0] = 0x05;
+    this.checkSameLength(abi.encode(a, b, c, d, e));
   }
 }
